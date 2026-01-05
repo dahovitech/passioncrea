@@ -1,0 +1,7 @@
+{
+  "name": "PassionCréa",
+  "description": "Une application web intuitive pour générer des affiches professionnelles JCI Sèmè-Podji Passion (Agendas, Anniversaires, Motivations, Gratitudes) sans effort.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

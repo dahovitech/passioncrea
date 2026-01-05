@@ -1,24 +1,72 @@
 
 import React from 'react';
-import { Clock, MapPin, User, Bookmark, Quote, Award, Calendar, Heart, Zap } from 'lucide-react';
+import { Clock, MapPin, User, Bookmark, Quote, Award, Calendar, Heart, Zap, Move, ZoomIn, ZoomOut, ArrowUp, ArrowDown, ArrowLeft, ArrowRight } from 'lucide-react';
 import { TemplateType, PosterData } from '../types';
 import { LOGO_OPTIONS, LOGO_JCI_COLOR } from '../constants';
 
 interface Props {
   data: PosterData;
   mandateLogoUrl: string;
+  onUpdateData?: (newData: Partial<PosterData>) => void;
 }
 
-const TemplateRenderer: React.FC<Props> = ({ data, mandateLogoUrl }) => {
+const TemplateRenderer: React.FC<Props> = ({ data, mandateLogoUrl, onUpdateData }) => {
   const { 
     templateType, variant, primaryText, secondaryText, name, role, date, 
-    imageUrl, backgroundImageUrl, accentColor, textColor, backgroundColor, selectedLogo, primaryFont, partners, socialIcons,
+    imageUrl, imageZoom, imagePosX, imagePosY, backgroundImageUrl, accentColor, textColor, backgroundColor, selectedLogo, primaryFont, partners, socialIcons,
     formationModules, assistants, agendaItems
   } = data;
 
   const getSelectedLogoPath = () => {
     const option = LOGO_OPTIONS.find(opt => opt.id === selectedLogo);
     return option ? option.path : LOGO_JCI_COLOR;
+  };
+
+  // Helper component for adjustable subject image
+  const SubjectImage = ({ className = "", style = {} }: { className?: string; style?: React.CSSProperties }) => {
+    const handleAdjust = (field: keyof PosterData, value: number) => {
+      if (onUpdateData) onUpdateData({ [field]: value });
+    };
+
+    return (
+      <div className={`relative group overflow-hidden ${className}`} style={style}>
+        {imageUrl ? (
+          <img 
+            src={imageUrl} 
+            className="w-full h-full object-cover origin-center transition-transform duration-75" 
+            style={{ 
+              transform: `scale(${imageZoom}) translate(${imagePosX / imageZoom}px, ${imagePosY / imageZoom}px)` 
+            }} 
+          />
+        ) : (
+          <div className="w-full h-full bg-slate-100 flex items-center justify-center">
+            <User size={64} className="text-slate-300" />
+          </div>
+        )}
+
+        {/* Interactive Controls Overlay - Hidden on export */}
+        {imageUrl && onUpdateData && (
+          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-4 no-export z-50">
+            <div className="flex gap-2">
+              <button onClick={() => handleAdjust('imageZoom', imageZoom + 0.1)} className="p-2 bg-white rounded-full hover:bg-blue-50 text-blue-600 shadow-lg"><ZoomIn size={20}/></button>
+              <button onClick={() => handleAdjust('imageZoom', Math.max(0.5, imageZoom - 0.1))} className="p-2 bg-white rounded-full hover:bg-blue-50 text-blue-600 shadow-lg"><ZoomOut size={20}/></button>
+            </div>
+            <div className="grid grid-cols-3 gap-2">
+              <div />
+              <button onClick={() => handleAdjust('imagePosY', imagePosY - 10)} className="p-2 bg-white rounded-full hover:bg-blue-50 text-slate-700 shadow-lg"><ArrowUp size={16}/></button>
+              <div />
+              <button onClick={() => handleAdjust('imagePosX', imagePosX - 10)} className="p-2 bg-white rounded-full hover:bg-blue-50 text-slate-700 shadow-lg"><ArrowLeft size={16}/></button>
+              <div className="p-2 bg-blue-600 rounded-full text-white shadow-lg"><Move size={16}/></div>
+              <button onClick={() => handleAdjust('imagePosX', imagePosX + 10)} className="p-2 bg-white rounded-full hover:bg-blue-50 text-slate-700 shadow-lg"><ArrowRight size={16}/></button>
+              <div />
+              <button onClick={() => handleAdjust('imagePosY', imagePosY + 10)} className="p-2 bg-white rounded-full hover:bg-blue-50 text-slate-700 shadow-lg"><ArrowDown size={16}/></button>
+              <div />
+            </div>
+            <p className="text-[10px] font-black text-white uppercase tracking-widest bg-[#005596] px-3 py-1 rounded-full">Ajuster Cadrage</p>
+          </div>
+        )}
+      </div>
+    );
   };
 
   const Header = () => (
@@ -163,9 +211,7 @@ const TemplateRenderer: React.FC<Props> = ({ data, mandateLogoUrl }) => {
             </div>
           </div>
           <div className="w-1/2 flex flex-col items-center">
-            <div className="w-72 h-72 rounded-[50px] overflow-hidden border-[15px] border-white shadow-2xl mb-6 transform -rotate-1">
-              {imageUrl ? <img src={imageUrl} className="w-full h-full object-cover" /> : <div className="w-full h-full bg-slate-100 flex items-center justify-center"><User size={48} className="text-slate-300"/></div>}
-            </div>
+            <SubjectImage className="w-72 h-72 rounded-[50px] border-[15px] border-white shadow-2xl mb-6 transform -rotate-1" />
             <div className="text-center">
               <p className="text-4xl font-black uppercase tracking-tighter" style={{ color: textColor }}>{name}</p>
               <p className="text-lg font-black tracking-[0.3em] uppercase opacity-40 mt-1" style={{ color: textColor }}>{role}</p>
@@ -177,9 +223,7 @@ const TemplateRenderer: React.FC<Props> = ({ data, mandateLogoUrl }) => {
     if (variant === 2) return (
       <div className="flex-grow pt-60 px-12 flex items-center justify-between gap-12">
         <div className="w-[45%] relative">
-           <div className="w-full aspect-square rounded-full overflow-hidden border-[25px] border-white shadow-2xl relative z-10">
-              {imageUrl ? <img src={imageUrl} className="w-full h-full object-cover" /> : <div className="w-full h-full bg-slate-100 flex items-center justify-center"><User size={64} className="text-slate-300"/></div>}
-           </div>
+           <SubjectImage className="w-full aspect-square rounded-full border-[25px] border-white shadow-2xl relative z-10" />
            <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white/95 p-6 rounded-[40px] shadow-2xl border-t-[10px] z-20 min-w-[300px]" style={{ borderTopColor: accentColor }}>
               <p className="text-3xl font-black text-center" style={{ color: textColor }}>{name}</p>
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-40 text-center mt-1" style={{ color: textColor }}>{role}</p>
@@ -207,9 +251,7 @@ const TemplateRenderer: React.FC<Props> = ({ data, mandateLogoUrl }) => {
             <div className="grid grid-cols-2 gap-16 items-center">
                <div className="border-r border-slate-100 pr-8"><ModulesList /></div>
                <div className="flex flex-col items-center">
-                  <div className="w-56 h-56 rounded-full overflow-hidden border-[15px] border-slate-50 shadow-2xl mb-6">
-                    {imageUrl ? <img src={imageUrl} className="w-full h-full object-cover" /> : <div className="w-full h-full bg-slate-100 flex items-center justify-center"><User size={48} className="text-slate-300"/></div>}
-                  </div>
+                  <SubjectImage className="w-56 h-56 rounded-full border-[15px] border-slate-50 shadow-2xl mb-6" />
                   <p className="text-3xl font-black tracking-tight" style={{ color: textColor }}>{name}</p>
                   <p className="text-sm font-bold opacity-30 mt-1 uppercase tracking-widest" style={{ color: textColor }}>{role}</p>
                </div>
@@ -231,9 +273,7 @@ const TemplateRenderer: React.FC<Props> = ({ data, mandateLogoUrl }) => {
             <span className="text-5xl font-black leading-none" style={{ color: textColor }}>{day}</span>
             <span className="text-sm font-black uppercase tracking-[0.2em]" style={{ color: textColor }}>{month}</span>
           </div>
-          <div className="w-[360px] h-[360px] rounded-full border-[20px] border-white shadow-xl overflow-hidden relative z-[10]">
-            {imageUrl ? <img src={imageUrl} className="w-full h-full object-cover" /> : <div className="w-full h-full bg-slate-100 flex items-center justify-center"><User size={64} className="text-slate-300"/></div>}
-          </div>
+          <SubjectImage className="w-[360px] h-[360px] rounded-full border-[20px] border-white shadow-xl relative z-[10]" />
         </div>
         <h2 className="text-5xl font-black mb-3 italic tracking-tighter uppercase leading-none" style={{ color: textColor }}>{primaryText}</h2>
         <div className="bg-white py-4 px-20 rounded-full shadow-lg border-4" style={{ borderColor: accentColor }}>
@@ -247,9 +287,9 @@ const TemplateRenderer: React.FC<Props> = ({ data, mandateLogoUrl }) => {
     if (variant === 2) return (
       <div className="flex-grow flex flex-col pt-60 px-12">
         <div className="flex items-center gap-16">
-          <div className="w-[500px] h-[500px] rounded-[100px] overflow-hidden border-[20px] border-white shadow-2xl relative transform rotate-2">
-            {imageUrl ? <img src={imageUrl} className="w-full h-full object-cover" /> : <div className="w-full h-full bg-slate-100 flex items-center justify-center"><User size={80} className="text-slate-300"/></div>}
-            <div className="absolute top-0 left-0 bg-white/20 backdrop-blur px-6 py-3 font-black text-xl tracking-widest uppercase" style={{ color: textColor }}>{primaryText}</div>
+          <div className="w-[500px] h-[500px] rounded-[100px] border-[20px] border-white shadow-2xl relative transform rotate-2 overflow-hidden">
+            <SubjectImage />
+            <div className="absolute top-0 left-0 bg-white/20 backdrop-blur px-6 py-3 font-black text-xl tracking-widest uppercase z-10" style={{ color: textColor }}>{primaryText}</div>
           </div>
           <div className="flex-1 space-y-10 transform -rotate-2">
             <div className="border-l-[15px] pl-10" style={{ borderColor: accentColor }}>
@@ -269,9 +309,7 @@ const TemplateRenderer: React.FC<Props> = ({ data, mandateLogoUrl }) => {
     return (
       <div className="flex-grow pt-40 px-12 flex flex-col items-center justify-center text-center relative overflow-hidden">
          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[400px] font-black opacity-[0.03] select-none" style={{ color: accentColor }}>{primaryText || "HB"}</div>
-         <div className="w-96 h-96 rounded-full border-[15px] border-white shadow-2xl overflow-hidden mb-8 relative z-10" style={{ borderColor: accentColor }}>
-            {imageUrl ? <img src={imageUrl} className="w-full h-full object-cover" /> : <div className="w-full h-full bg-slate-100 flex items-center justify-center"><User size={64} className="text-slate-300"/></div>}
-         </div>
+         <SubjectImage className="w-96 h-96 rounded-full border-[15px] border-white shadow-2xl mb-8 relative z-10" style={{ borderColor: accentColor }} />
          <div className="space-y-4 relative z-10">
             <p className="text-2xl font-black uppercase tracking-[0.8em] opacity-30" style={{ color: textColor }}>{primaryText}</p>
             <h2 className="text-7xl font-black uppercase tracking-tighter leading-none" style={{ color: textColor }}>{name}</h2>
@@ -306,13 +344,13 @@ const TemplateRenderer: React.FC<Props> = ({ data, mandateLogoUrl }) => {
       <div className="flex-grow flex flex-col pt-60 px-12">
         <div className="flex items-stretch gap-12 h-full">
            <div className="w-[450px] relative shrink-0">
-              <div className="absolute inset-0 rounded-[40px] overflow-hidden border-[15px] border-white shadow-2xl transform rotate-2">
-              {imageUrl ? <img src={imageUrl} className="w-full h-full object-cover" /> : <div className="w-full h-full bg-slate-100 flex items-center justify-center"><User size={64} className="text-slate-300"/></div>}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                 <div className="absolute bottom-10 left-10 right-10">
-                    <p className="text-3xl font-black uppercase leading-none" style={{ color: textColor }}>{name}</p>
-                    <p className="text-sm font-bold uppercase tracking-widest mt-2" style={{ color: textColor, opacity: 0.8 }}>{role}</p>
-                 </div>
+              <div className="absolute inset-0 rounded-[40px] border-[15px] border-white shadow-2xl transform rotate-2 overflow-hidden">
+                <SubjectImage />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div className="absolute bottom-10 left-10 right-10 z-10">
+                  <p className="text-3xl font-black uppercase leading-none" style={{ color: textColor }}>{name}</p>
+                  <p className="text-sm font-bold uppercase tracking-widest mt-2" style={{ color: textColor, opacity: 0.8 }}>{role}</p>
+                </div>
               </div>
            </div>
            <div className="flex-1 flex flex-col justify-center space-y-10">
@@ -358,9 +396,7 @@ const TemplateRenderer: React.FC<Props> = ({ data, mandateLogoUrl }) => {
       <div className="flex-grow pt-64 px-12 flex flex-col items-center justify-center text-center relative overflow-hidden">
          <h2 className="text-[250px] font-black italic leading-none mb-10 tracking-tighter opacity-[0.05] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 uppercase select-none" style={{ color: accentColor }}>{secondaryText || "MERCI"}</h2>
          <div className="relative z-10 space-y-10 flex flex-col items-center">
-            <div className="w-72 h-72 rounded-full border-[15px] border-white shadow-2xl overflow-hidden relative z-10 mb-6" style={{ borderColor: backgroundColor === '#FFFFFF' ? '#F1F5F9' : backgroundColor, boxShadow: `0 25px 50px -12px rgba(0,0,0,0.25), 0 0 0 10px ${accentColor}20` }}>
-              {imageUrl ? <img src={imageUrl} className="w-full h-full object-cover" /> : <div className="w-full h-full bg-slate-100 flex items-center justify-center"><User size={48} className="text-slate-300"/></div>}
-            </div>
+            <SubjectImage className="w-72 h-72 rounded-full border-[15px] border-white shadow-2xl relative z-10 mb-6" style={{ borderColor: backgroundColor === '#FFFFFF' ? '#F1F5F9' : backgroundColor, boxShadow: `0 25px 50px -12px rgba(0,0,0,0.25), 0 0 0 10px ${accentColor}20` }} />
             <p className="text-4xl font-black italic leading-tight max-w-4xl mx-auto" style={{ color: textColor }}>
               "{secondaryText}"
             </p>
@@ -378,9 +414,7 @@ const TemplateRenderer: React.FC<Props> = ({ data, mandateLogoUrl }) => {
         <div className="flex items-center gap-16 h-full">
            <div className="w-[480px] h-[580px] relative shrink-0">
               <div className="absolute inset-0 border-r-[25px] border-b-[25px] rounded-[60px] translate-x-6 translate-y-6 opacity-20" style={{ borderColor: accentColor }}></div>
-              <div className="absolute inset-0 rounded-[60px] overflow-hidden border-8 border-white shadow-2xl">
-                 {imageUrl ? <img src={imageUrl} className="w-full h-full object-cover" /> : <div className="w-full h-full bg-slate-100 flex items-center justify-center"><User size={64} className="text-slate-300"/></div>}
-              </div>
+              <SubjectImage className="absolute inset-0 rounded-[60px] border-8 border-white shadow-2xl" />
               <div className="absolute -top-6 -left-6 bg-white p-4 rounded-full shadow-xl" style={{ color: accentColor }}>
                 <Heart size={40} fill="currentColor" />
               </div>
@@ -412,9 +446,7 @@ const TemplateRenderer: React.FC<Props> = ({ data, mandateLogoUrl }) => {
             <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full opacity-10 -rotate-12" style={{ backgroundColor: accentColor }}></div>
             
             <div className="flex flex-col items-center space-y-4 z-10">
-               <div className="w-48 h-48 rounded-full border-6 border-white shadow-xl overflow-hidden" style={{ borderColor: accentColor }}>
-                  {imageUrl ? <img src={imageUrl} className="w-full h-full object-cover" /> : <div className="w-full h-full bg-slate-100 flex items-center justify-center"><User size={32} className="text-slate-300"/></div>}
-               </div>
+               <SubjectImage className="w-48 h-48 rounded-full border-6 border-white shadow-xl" style={{ borderColor: accentColor }} />
                <div className="px-4 py-1.5 rounded-full border-2 font-black uppercase text-xs tracking-[0.5em]" style={{ borderColor: accentColor, color: textColor }}>{primaryText || "HOMMAGE"}</div>
             </div>
 

@@ -10,7 +10,7 @@ test('homepage loads successfully', async ({ page }) => {
   });
 
   // Navigate to the page
-  await page.goto('http://localhost:8888/', { waitUntil: 'networkidle' });
+  await page.goto('http://localhost:4173/', { waitUntil: 'networkidle' });
 
   // Wait a bit for any async operations
   await page.waitForTimeout(2000);

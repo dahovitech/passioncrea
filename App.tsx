@@ -30,6 +30,9 @@ const App: React.FC = () => {
     role: '',
     date: '10 MAI',
     imageUrl: '',
+    imageZoom: 1,
+    imagePosX: 0,
+    imagePosY: 0,
     backgroundImageUrl: '',
     agendaItems: [{ id: '1', day: '06', monthShort: 'AVR', title: 'Réunion de zone' }],
     formationModules: [{ id: '1', title: 'Module 1: Leadership JCI', hour: '09:00' }],
@@ -98,6 +101,9 @@ const App: React.FC = () => {
         role: 'Inspiration',
         date: '',
         imageUrl: '',
+        imageZoom: 1,
+        imagePosX: 0,
+        imagePosY: 0,
         agendaItems: [{ id: '1', day: '06', monthShort: 'AVR', title: 'Réunion de zone' }],
         formationModules: [{ id: '1', title: 'Module 1: Leadership', hour: '09:00' }],
         assistants: []
@@ -109,6 +115,9 @@ const App: React.FC = () => {
         role: 'Rôle',
         date: '',
         imageUrl: '',
+        imageZoom: 1,
+        imagePosX: 0,
+        imagePosY: 0,
         agendaItems: [{ id: '1', day: '06', monthShort: 'AVR', title: 'Réunion de zone' }],
         formationModules: [{ id: '1', title: 'Module 1: Leadership', hour: '09:00' }],
         assistants: []
@@ -120,6 +129,9 @@ const App: React.FC = () => {
         role: '',
         date: '',
         imageUrl: '',
+        imageZoom: 1,
+        imagePosX: 0,
+        imagePosY: 0,
         agendaItems: [{ id: '1', day: '06', monthShort: 'AVR', title: 'Réunion de zone' }],
         formationModules: [{ id: '1', title: 'Module 1: Leadership', hour: '09:00' }],
         assistants: []
@@ -137,6 +149,11 @@ const App: React.FC = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     push({ ...data, [name]: value });
+  };
+
+  // Handler for image manipulation (zoom and position)
+  const handleUpdateData = (newData: Partial<PosterData>) => {
+    push({ ...data, ...newData });
   };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, field: string, id?: string) => {
@@ -406,6 +423,74 @@ const App: React.FC = () => {
                   </div>
                 </div>
 
+                {/* Image Manipulation Controls */}
+                {data.imageUrl && (
+                  <section className="bg-slate-50 p-2.5 rounded-xl border border-slate-200 space-y-3">
+                    <h3 className="text-[11px] font-black text-[#005596] uppercase tracking-widest flex items-center gap-1.5">
+                      <ImageIcon size={12}/> Ajustage de l'Image
+                    </h3>
+                    
+                    {/* Zoom Control */}
+                    <div className="space-y-1">
+                      <div className="flex justify-between items-center">
+                        <label className="text-[9px] font-bold text-slate-500 uppercase">Zoom</label>
+                        <span className="text-[10px] font-mono text-[#005596]">{Math.round(data.imageZoom * 100)}%</span>
+                      </div>
+                      <input 
+                        type="range" 
+                        min="0.5" 
+                        max="3" 
+                        step="0.1" 
+                        value={data.imageZoom}
+                        onChange={(e) => push({ ...data, imageZoom: parseFloat(e.target.value) })}
+                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#005596]"
+                      />
+                    </div>
+
+                    {/* Position X Control */}
+                    <div className="space-y-1">
+                      <div className="flex justify-between items-center">
+                        <label className="text-[9px] font-bold text-slate-500 uppercase">Position X</label>
+                        <span className="text-[10px] font-mono text-[#005596]">{data.imagePosX}</span>
+                      </div>
+                      <input 
+                        type="range" 
+                        min="-200" 
+                        max="200" 
+                        step="5" 
+                        value={data.imagePosX}
+                        onChange={(e) => push({ ...data, imagePosX: parseInt(e.target.value) })}
+                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#005596]"
+                      />
+                    </div>
+
+                    {/* Position Y Control */}
+                    <div className="space-y-1">
+                      <div className="flex justify-between items-center">
+                        <label className="text-[9px] font-bold text-slate-500 uppercase">Position Y</label>
+                        <span className="text-[10px] font-mono text-[#005596]">{data.imagePosY}</span>
+                      </div>
+                      <input 
+                        type="range" 
+                        min="-200" 
+                        max="200" 
+                        step="5" 
+                        value={data.imagePosY}
+                        onChange={(e) => push({ ...data, imagePosY: parseInt(e.target.value) })}
+                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#005596]"
+                      />
+                    </div>
+
+                    {/* Reset Button */}
+                    <button 
+                      onClick={() => push({ ...data, imageZoom: 1, imagePosX: 0, imagePosY: 0 })}
+                      className="w-full py-1.5 bg-white border border-slate-200 rounded-lg text-[10px] font-bold text-slate-500 hover:bg-slate-50 hover:text-[#005596] hover:border-[#005596] transition-colors"
+                    >
+                      Réinitialiser
+                    </button>
+                  </section>
+                )}
+
                 <div className="space-y-1.5">
                   <label className="text-[10px] font-bold text-slate-400 uppercase block ml-1">Message / Titre Principal</label>
                   <textarea name="primaryText" value={data.primaryText} onChange={handleInputChange} rows={2} className="w-full p-2 bg-slate-50 border rounded-lg text-[11px] font-medium text-black focus:bg-white focus:ring-1 focus:ring-blue-100 outline-none transition-all" />
@@ -550,6 +635,7 @@ const App: React.FC = () => {
                 <TemplateRenderer 
                   data={data} 
                   mandateLogoUrl={mandateLogo}
+                  onUpdateData={handleUpdateData}
                 />
             </div>
         </div>

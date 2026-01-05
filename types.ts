@@ -51,6 +51,9 @@ export interface PosterData {
   role: string;
   date: string;
   imageUrl?: string;
+  imageZoom: number;
+  imagePosX: number;
+  imagePosY: number;
   backgroundImageUrl?: string;
   agendaItems: AgendaItem[];
   formationModules: FormationModule[];

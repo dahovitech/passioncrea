@@ -55,9 +55,6 @@ export interface PosterData {
   imagePosX: number;
   imagePosY: number;
   backgroundImageUrl?: string;
-  backgroundImageZoom: number;
-  backgroundImagePosX: number;
-  backgroundImagePosY: number;
   agendaItems: AgendaItem[];
   formationModules: FormationModule[];
   assistants: AssistantTrainer[];

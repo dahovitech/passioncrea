@@ -13,7 +13,7 @@ interface Props {
 const TemplateRenderer: React.FC<Props> = ({ data, mandateLogoUrl, onUpdateData }) => {
   const { 
     templateType, variant, primaryText, secondaryText, name, role, date, 
-    imageUrl, imageZoom, imagePosX, imagePosY, backgroundImageUrl, backgroundImageZoom, backgroundImagePosX, backgroundImagePosY, accentColor, textColor, backgroundColor, selectedLogo, primaryFont, partners, socialIcons,
+    imageUrl, imageZoom, imagePosX, imagePosY, backgroundImageUrl, accentColor, textColor, backgroundColor, selectedLogo, primaryFont, partners, socialIcons,
     formationModules, assistants, agendaItems
   } = data;
 
@@ -487,25 +487,14 @@ const TemplateRenderer: React.FC<Props> = ({ data, mandateLogoUrl, onUpdateData 
         backgroundColor, 
         width: '1080px', 
         height: '1080px',
-        fontFamily: primaryFont
+        fontFamily: primaryFont,
+        backgroundImage: backgroundImageUrl ? `url(${backgroundImageUrl})` : 'none',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
       }}
     >
-      {/* Background Image Layer */}
       {backgroundImageUrl && (
-        <div 
-          className="absolute inset-0 w-full h-full"
-          style={{
-            backgroundImage: `url(${backgroundImageUrl})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            transform: `scale(${backgroundImageZoom}) translate(${backgroundImagePosX / 10}px, ${backgroundImagePosY / 10}px)`,
-            transformOrigin: 'center'
-          }}
-        />
-      )}
-      {/* Overlay for darkening background */}
-      {backgroundImageUrl && (
-        <div className="absolute inset-0 bg-black/10 pointer-events-none z-10"></div>
+        <div className="absolute inset-0 bg-black/10 pointer-events-none"></div>
       )}
       <Header />
       {renderTemplate()}

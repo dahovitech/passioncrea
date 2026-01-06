@@ -490,7 +490,8 @@ const TemplateRenderer: React.FC<Props> = ({ data, mandateLogoUrl, onUpdateData 
         fontFamily: primaryFont,
         backgroundImage: backgroundImageUrl ? `url(${backgroundImageUrl})` : 'none',
         backgroundSize: `${backgroundImageZoom * 100}%`,
-        backgroundPosition: `${backgroundImagePosX / 10}px ${backgroundImagePosY / 10}px`
+        backgroundPosition: `${backgroundImagePosX / 10}px ${backgroundImagePosY / 10}px`,
+        backgroundRepeat: 'no-repeat'
       }}
     >
       {backgroundImageUrl && (

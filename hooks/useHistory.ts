@@ -1,8 +1,30 @@
 import React from 'react';
 import { PosterData } from '../types';
 
-const MAX_HISTORY = 20;
+const MAX_HISTORY = 10; // Reduced from 20 to save storage
 const STORAGE_KEY = 'passioncrea_history';
+
+// Helper to estimate the size of an object in bytes
+const getObjectSize = (obj: unknown): number => {
+  return new Blob([JSON.stringify(obj)]).size;
+};
+
+// Helper to strip images from state for storage (Base64 images are too large)
+const stripImages = (state: PosterData): PosterData => {
+  return {
+    ...state,
+    imageUrl: undefined, // Don't store subject image
+    backgroundImageUrl: undefined, // Don't store background image
+    assistants: state.assistants.map(a => ({
+      ...a,
+      imageUrl: undefined // Don't store assistant images
+    })),
+    partners: state.partners.map(p => ({
+      ...p,
+      logo: undefined // Don't store partner logos
+    }))
+  };
+};
 
 interface HistoryState {
   past: PosterData[];
@@ -48,14 +70,30 @@ export const useHistory = (initialState: PosterData): UseHistoryReturn => {
     };
   });
 
-  // Save to localStorage on change
+  // Save to localStorage on change (with error handling for quota exceeded)
   React.useEffect(() => {
     const toSave = {
-      past: history.past.slice(-MAX_HISTORY),
-      present: history.present,
-      future: history.future
+      past: history.past.slice(-MAX_HISTORY).map(stripImages),
+      present: stripImages(history.present),
+      future: history.future.map(stripImages)
     };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave));
+
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave));
+    } catch (e) {
+      // If quota exceeded, try to clear and save just the present state
+      console.warn('LocalStorage quota exceeded, clearing history');
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          past: [],
+          present: stripImages(history.present),
+          future: []
+        }));
+      } catch (e2) {
+        // If still fails, give up on saving to localStorage
+        console.warn('Could not save to localStorage');
+      }
+    }
   }, [history]);
 
   const canUndo = history.past.length > 0;
@@ -88,8 +126,12 @@ export const useHistory = (initialState: PosterData): UseHistoryReturn => {
   }, [history.past, history.future, history.present, canRedo]);
 
   const push = React.useCallback((newState: PosterData) => {
-    // Don't push if state hasn't changed
-    if (JSON.stringify(newState) === JSON.stringify(history.present)) {
+    // Don't push if state hasn't changed (basic check)
+    if (history.present.templateType === newState.templateType &&
+        history.present.primaryText === newState.primaryText &&
+        history.present.imageUrl === newState.imageUrl &&
+        history.present.backgroundImageUrl === newState.backgroundImageUrl &&
+        history.present.accentColor === newState.accentColor) {
       return;
     }
     

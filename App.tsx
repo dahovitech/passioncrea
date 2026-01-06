@@ -34,6 +34,9 @@ const App: React.FC = () => {
     imagePosX: 0,
     imagePosY: 0,
     backgroundImageUrl: '',
+    backgroundImageZoom: 1,
+    backgroundImagePosX: 0,
+    backgroundImagePosY: 0,
     agendaItems: [{ id: '1', day: '06', monthShort: 'AVR', title: 'Réunion de zone' }],
     formationModules: [{ id: '1', title: 'Module 1: Leadership JCI', hour: '09:00' }],
     assistants: [],
@@ -68,6 +71,10 @@ const App: React.FC = () => {
         role: '',
         date: '01 MAI',
         imageUrl: '',
+        backgroundImageUrl: '',
+        backgroundImageZoom: 1,
+        backgroundImagePosX: 0,
+        backgroundImagePosY: 0,
         agendaItems: [{ id: '1', day: '01', monthShort: 'MAI', title: 'Réunion de coordination' }],
         formationModules: [{ id: '1', title: 'Module 1: Leadership', hour: '09:00' }],
         assistants: []
@@ -79,6 +86,10 @@ const App: React.FC = () => {
         role: 'Expert',
         date: '15 MAI 2024',
         imageUrl: '',
+        backgroundImageUrl: '',
+        backgroundImageZoom: 1,
+        backgroundImagePosX: 0,
+        backgroundImagePosY: 0,
         agendaItems: [{ id: '1', day: '06', monthShort: 'AVR', title: 'Réunion de zone' }],
         formationModules: [{ id: '1', title: 'Module 1: Leadership JCI', hour: '09:00' }],
         assistants: []
@@ -90,6 +101,10 @@ const App: React.FC = () => {
         role: 'JCI',
         date: '15 MAI',
         imageUrl: '',
+        backgroundImageUrl: '',
+        backgroundImageZoom: 1,
+        backgroundImagePosX: 0,
+        backgroundImagePosY: 0,
         agendaItems: [{ id: '1', day: '06', monthShort: 'AVR', title: 'Réunion de zone' }],
         formationModules: [{ id: '1', title: 'Module 1: Leadership', hour: '09:00' }],
         assistants: []
@@ -104,6 +119,10 @@ const App: React.FC = () => {
         imageZoom: 1,
         imagePosX: 0,
         imagePosY: 0,
+        backgroundImageUrl: '',
+        backgroundImageZoom: 1,
+        backgroundImagePosX: 0,
+        backgroundImagePosY: 0,
         agendaItems: [{ id: '1', day: '06', monthShort: 'AVR', title: 'Réunion de zone' }],
         formationModules: [{ id: '1', title: 'Module 1: Leadership', hour: '09:00' }],
         assistants: []
@@ -118,6 +137,10 @@ const App: React.FC = () => {
         imageZoom: 1,
         imagePosX: 0,
         imagePosY: 0,
+        backgroundImageUrl: '',
+        backgroundImageZoom: 1,
+        backgroundImagePosX: 0,
+        backgroundImagePosY: 0,
         agendaItems: [{ id: '1', day: '06', monthShort: 'AVR', title: 'Réunion de zone' }],
         formationModules: [{ id: '1', title: 'Module 1: Leadership', hour: '09:00' }],
         assistants: []
@@ -132,6 +155,10 @@ const App: React.FC = () => {
         imageZoom: 1,
         imagePosX: 0,
         imagePosY: 0,
+        backgroundImageUrl: '',
+        backgroundImageZoom: 1,
+        backgroundImagePosX: 0,
+        backgroundImagePosY: 0,
         agendaItems: [{ id: '1', day: '06', monthShort: 'AVR', title: 'Réunion de zone' }],
         formationModules: [{ id: '1', title: 'Module 1: Leadership', hour: '09:00' }],
         assistants: []
@@ -383,6 +410,74 @@ const App: React.FC = () => {
                     </button>
                   )}
                 </div>
+
+                {/* Background Image Manipulation Controls */}
+                {data.backgroundImageUrl && (
+                  <div className="mt-3 space-y-2 pt-3 border-t border-slate-200">
+                    <h3 className="text-[10px] font-black text-[#005596] uppercase tracking-widest flex items-center gap-1">
+                      <ImageIcon size={10}/> Ajustage Fond
+                    </h3>
+                    
+                    {/* Background Zoom Control */}
+                    <div className="space-y-1">
+                      <div className="flex justify-between items-center">
+                        <label className="text-[8px] font-bold text-slate-500 uppercase">Zoom</label>
+                        <span className="text-[9px] font-mono text-[#005596]">{Math.round(data.backgroundImageZoom * 100)}%</span>
+                      </div>
+                      <input 
+                        type="range" 
+                        min="0.5" 
+                        max="3" 
+                        step="0.1" 
+                        value={data.backgroundImageZoom}
+                        onChange={(e) => push({ ...data, backgroundImageZoom: parseFloat(e.target.value) })}
+                        className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#005596]"
+                      />
+                    </div>
+
+                    {/* Background Position X Control */}
+                    <div className="space-y-1">
+                      <div className="flex justify-between items-center">
+                        <label className="text-[8px] font-bold text-slate-500 uppercase">Position X</label>
+                        <span className="text-[9px] font-mono text-[#005596]">{data.backgroundImagePosX}</span>
+                      </div>
+                      <input 
+                        type="range" 
+                        min="-200" 
+                        max="200" 
+                        step="5" 
+                        value={data.backgroundImagePosX}
+                        onChange={(e) => push({ ...data, backgroundImagePosX: parseInt(e.target.value) })}
+                        className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#005596]"
+                      />
+                    </div>
+
+                    {/* Background Position Y Control */}
+                    <div className="space-y-1">
+                      <div className="flex justify-between items-center">
+                        <label className="text-[8px] font-bold text-slate-500 uppercase">Position Y</label>
+                        <span className="text-[9px] font-mono text-[#005596]">{data.backgroundImagePosY}</span>
+                      </div>
+                      <input 
+                        type="range" 
+                        min="-200" 
+                        max="200" 
+                        step="5" 
+                        value={data.backgroundImagePosY}
+                        onChange={(e) => push({ ...data, backgroundImagePosY: parseInt(e.target.value) })}
+                        className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#005596]"
+                      />
+                    </div>
+
+                    {/* Reset Button */}
+                    <button 
+                      onClick={() => push({ ...data, backgroundImageZoom: 1, backgroundImagePosX: 0, backgroundImagePosY: 0 })}
+                      className="w-full py-1 bg-white border border-slate-200 rounded-lg text-[9px] font-bold text-slate-500 hover:bg-slate-50 hover:text-[#005596] hover:border-[#005596] transition-colors"
+                    >
+                      Réinitialiser
+                    </button>
+                  </div>
+                )}
               </section>
 
               <section className="space-y-1.5">

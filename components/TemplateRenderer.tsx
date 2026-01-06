@@ -13,7 +13,7 @@ interface Props {
 const TemplateRenderer: React.FC<Props> = ({ data, mandateLogoUrl, onUpdateData }) => {
   const { 
     templateType, variant, primaryText, secondaryText, name, role, date, 
-    imageUrl, imageZoom, imagePosX, imagePosY, backgroundImageUrl, accentColor, textColor, backgroundColor, selectedLogo, primaryFont, partners, socialIcons,
+    imageUrl, imageZoom, imagePosX, imagePosY, backgroundImageUrl, backgroundImageZoom, backgroundImagePosX, backgroundImagePosY, accentColor, textColor, backgroundColor, selectedLogo, primaryFont, partners, socialIcons,
     formationModules, assistants, agendaItems
   } = data;
 
@@ -489,8 +489,8 @@ const TemplateRenderer: React.FC<Props> = ({ data, mandateLogoUrl, onUpdateData 
         height: '1080px',
         fontFamily: primaryFont,
         backgroundImage: backgroundImageUrl ? `url(${backgroundImageUrl})` : 'none',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center'
+        backgroundSize: `${backgroundImageZoom * 100}%`,
+        backgroundPosition: `${backgroundImagePosX / 10}px ${backgroundImagePosY / 10}px`
       }}
     >
       {backgroundImageUrl && (

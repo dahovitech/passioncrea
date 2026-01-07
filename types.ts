@@ -63,8 +63,13 @@ export interface PosterData {
   backgroundColor: string;
   selectedLogo: 'color' | 'white' | 'black';
   primaryFont: string;
+  birthdayTitleFont: string;
   partners: Partner[];
   socialIcons: SocialIcon[];
+  nameColor?: string;
+  roleColor?: string;
+  dateColor?: string;
+  primaryTextColor?: string;
 }
 
 export interface TemplateConfig {

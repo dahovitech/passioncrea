@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TemplateType, PosterData, Partner, FormationModule, AssistantTrainer, SocialIcon } from './types';
-import { TEMPLATES, JCI_BLUE, JCI_DARK, JCI_WHITE, LOGO_OPTIONS, FONT_OPTIONS, DEFAULT_PARTNERS, LOGO_MANDAT_2026, SOCIAL_ICONS } from './constants';
+import { TEMPLATES, JCI_BLUE, JCI_DARK, JCI_WHITE, LOGO_OPTIONS, FONT_OPTIONS, BIRTHDAY_TITLE_FONTS, DEFAULT_PARTNERS, LOGO_MANDAT_2026, SOCIAL_ICONS } from './constants';
 import TemplateRenderer from './components/TemplateRenderer';
 import { Download, Plus, Layout, Palette, X, RefreshCcw, UserCircle, Layers, Trash2, UserPlus, ListPlus, Type as TypeIcon, Image as ImageIcon, Settings, Share2, ImageIcon as BgIcon, CalendarDays, Award } from 'lucide-react';
 import * as htmlToImage from 'html-to-image';
@@ -42,6 +42,7 @@ const App: React.FC = () => {
     backgroundColor: JCI_WHITE,
     selectedLogo: 'color',
     primaryFont: FONT_OPTIONS[0].family,
+    birthdayTitleFont: BIRTHDAY_TITLE_FONTS[0].family,
     partners: [...DEFAULT_PARTNERS],
     socialIcons: [
       { ...SOCIAL_ICONS[0], id: 'fb-1' },
@@ -86,16 +87,20 @@ const App: React.FC = () => {
         assistants: []
       },
       [TemplateType.BIRTHDAY]: {
-        primaryText: 'BON ANNIVERSAIRE',
+        primaryText: 'HAPPY BIRTHDAY',
         secondaryText: '',
-        name: 'Membre',
-        role: 'JCI',
+        name: 'Nom du Membre',
+        role: 'Rôle',
         date: '15 MAI',
         imageUrl: '',
         backgroundImageUrl: '',
         agendaItems: [{ id: '1', day: '06', monthShort: 'AVR', title: 'Réunion de zone' }],
         formationModules: [{ id: '1', title: 'Module 1: Leadership', hour: '09:00' }],
-        assistants: []
+        assistants: [],
+        nameColor: '#000000',
+        roleColor: '#005596',
+        dateColor: '#C6A967',
+        primaryTextColor: '#005596'
       },
       [TemplateType.MOTIVATION]: {
         primaryText: 'La réussite est la somme de petits efforts répétés jour après jour.',
@@ -522,7 +527,141 @@ const App: React.FC = () => {
                     </div>
                   </div>
                 </div>
+
+                <section className="bg-blue-50/30 p-2.5 rounded-xl border border-blue-100/50 space-y-2">
+                  <h2 className="text-[11px] font-black text-[#005596] uppercase tracking-widest flex items-center gap-1.5"><Palette size={12}/> Couleurs des Textes</h2>
+                  
+                  {/* Couleur du Nom */}
+                  <div className="space-y-1">
+                    <label className="text-[9px] text-slate-500 uppercase ml-1">Couleur du Nom</label>
+                    <div className="flex gap-1.5 items-center bg-white p-1.5 rounded-lg border">
+                      <div className="flex gap-1">
+                        {['#005596', '#C6A967', '#000000', '#FFFFFF', '#E11D48', '#059669', '#7C3AED', '#EA580C'].map(color => (
+                          <button
+                            key={color}
+                            onClick={() => push({ ...data, nameColor: color })}
+                            className={`w-5 h-5 rounded-md border-2 transition-all ${data.nameColor === color ? 'border-blue-400 scale-110' : 'border-transparent hover:scale-105'}`}
+                            style={{ backgroundColor: color }}
+                            title={color}
+                          />
+                        ))}
+                      </div>
+                      <div className="relative flex-1">
+                        <input 
+                          type="color" 
+                          value={data.nameColor || '#000000'} 
+                          onChange={(e) => push({ ...data, nameColor: e.target.value })}
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                        />
+                        <div className="w-full h-5 rounded border border-slate-200" style={{ backgroundColor: data.nameColor || '#000000' }} />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Couleur du Rôle */}
+                  <div className="space-y-1">
+                    <label className="text-[9px] text-slate-500 uppercase ml-1">Couleur du Rôle</label>
+                    <div className="flex gap-1.5 items-center bg-white p-1.5 rounded-lg border">
+                      <div className="flex gap-1">
+                        {['#005596', '#C6A967', '#000000', '#FFFFFF', '#E11D48', '#059669', '#7C3AED', '#EA580C'].map(color => (
+                          <button
+                            key={color}
+                            onClick={() => push({ ...data, roleColor: color })}
+                            className={`w-5 h-5 rounded-md border-2 transition-all ${data.roleColor === color ? 'border-blue-400 scale-110' : 'border-transparent hover:scale-105'}`}
+                            style={{ backgroundColor: color }}
+                            title={color}
+                          />
+                        ))}
+                      </div>
+                      <div className="relative flex-1">
+                        <input 
+                          type="color" 
+                          value={data.roleColor || '#005596'} 
+                          onChange={(e) => push({ ...data, roleColor: e.target.value })}
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                        />
+                        <div className="w-full h-5 rounded border border-slate-200" style={{ backgroundColor: data.roleColor || '#005596' }} />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Couleur de la Date */}
+                  <div className="space-y-1">
+                    <label className="text-[9px] text-slate-500 uppercase ml-1">Couleur de la Date</label>
+                    <div className="flex gap-1.5 items-center bg-white p-1.5 rounded-lg border">
+                      <div className="flex gap-1">
+                        {['#005596', '#C6A967', '#000000', '#FFFFFF', '#E11D48', '#059669', '#7C3AED', '#EA580C'].map(color => (
+                          <button
+                            key={color}
+                            onClick={() => push({ ...data, dateColor: color })}
+                            className={`w-5 h-5 rounded-md border-2 transition-all ${data.dateColor === color ? 'border-blue-400 scale-110' : 'border-transparent hover:scale-105'}`}
+                            style={{ backgroundColor: color }}
+                            title={color}
+                          />
+                        ))}
+                      </div>
+                      <div className="relative flex-1">
+                        <input 
+                          type="color" 
+                          value={data.dateColor || '#005596'} 
+                          onChange={(e) => push({ ...data, dateColor: e.target.value })}
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                        />
+                        <div className="w-full h-5 rounded border border-slate-200" style={{ backgroundColor: data.dateColor || '#005596' }} />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Couleur du Titre Principal */}
+                  <div className="space-y-1">
+                    <label className="text-[9px] text-slate-500 uppercase ml-1">Couleur du Titre</label>
+                    <div className="flex gap-1.5 items-center bg-white p-1.5 rounded-lg border">
+                      <div className="flex gap-1">
+                        {['#005596', '#C6A967', '#000000', '#FFFFFF', '#E11D48', '#059669', '#7C3AED', '#EA580C'].map(color => (
+                          <button
+                            key={color}
+                            onClick={() => push({ ...data, primaryTextColor: color })}
+                            className={`w-5 h-5 rounded-md border-2 transition-all ${data.primaryTextColor === color ? 'border-blue-400 scale-110' : 'border-transparent hover:scale-105'}`}
+                            style={{ backgroundColor: color }}
+                            title={color}
+                          />
+                        ))}
+                      </div>
+                      <div className="relative flex-1">
+                        <input 
+                          type="color" 
+                          value={data.primaryTextColor || '#005596'} 
+                          onChange={(e) => push({ ...data, primaryTextColor: e.target.value })}
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                        />
+                        <div className="w-full h-5 rounded border border-slate-200" style={{ backgroundColor: data.primaryTextColor || '#005596' }} />
+                      </div>
+                    </div>
+                  </div>
+                </section>
               </section>
+
+              {data.templateType === TemplateType.BIRTHDAY && (
+                <section className="border-t pt-3 space-y-2">
+                  <h3 className="text-[11px] font-black uppercase text-[#005596] tracking-widest flex items-center gap-1.5"><TypeIcon size={12}/> Police "HAPPY BIRTHDAY"</h3>
+                  <div className="grid grid-cols-2 gap-2">
+                    {BIRTHDAY_TITLE_FONTS.map(font => (
+                      <button
+                        key={font.id}
+                        onClick={() => push({ ...data, birthdayTitleFont: font.family })}
+                        className={`p-2 rounded-lg border text-[10px] font-bold transition-all ${
+                          data.birthdayTitleFont === font.family
+                            ? 'bg-blue-50 border-blue-400 text-blue-700'
+                            : 'bg-white border-slate-200 text-slate-600 hover:border-blue-300'
+                        }`}
+                        style={{ fontFamily: font.family }}
+                      >
+                        {font.label}
+                      </button>
+                    ))}
+                  </div>
+                </section>
+              )}
 
               {data.templateType === TemplateType.AGENDA && (
                 <section className="border-t pt-3 space-y-2">

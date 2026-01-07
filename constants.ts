@@ -26,6 +26,17 @@ export const FONT_OPTIONS = [
   { id: 'playfair', label: 'Playfair Display (Élégant)', family: "'Playfair Display', serif" }
 ];
 
+export const BIRTHDAY_TITLE_FONTS = [
+  { id: 'dancing', label: 'Dancing Script', family: "'Dancing Script', cursive", className: 'font-dancing' },
+  { id: 'greatvibes', label: 'Great Vibes', family: "'Great Vibes', cursive", className: 'font-vibes' },
+  { id: 'clicker', label: 'Clicker Script', family: "'Clicker Script', cursive", className: 'font-clicker' },
+  { id: 'sacramento', label: 'Sacramento', family: "'Sacramento', cursive", className: 'font-sacramento' },
+  { id: 'alexbrush', label: 'Alex Brush', family: "'Alex Brush', cursive", className: 'font-alex' },
+  { id: 'allura', label: 'Allura', family: "'Allura', cursive", className: 'font-allura' },
+  { id: 'playfair', label: 'Playfair Display', family: "'Playfair Display', serif", className: 'font-playfair' },
+  { id: 'merriweather', label: 'Merriweather', family: "'Merriweather', serif", className: 'font-merriweather' }
+];
+
 export const TEMPLATES: TemplateConfig[] = [
   { id: TemplateType.AGENDA, label: 'Agenda', icon: '📅', description: 'Événements planifiés' },
   { id: TemplateType.FORMATION, label: 'Formation', icon: '🎓', description: 'Session & Webinaire' },

@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0f4f8"/>
+      <stop offset="100%" style="stop-color:#e2e8f0"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#005596"/>
+      <stop offset="100%" style="stop-color:#003d6b"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#C6A967"/>
+      <stop offset="100%" style="stop-color:#a88a4f"/>
+    </linearGradient>
+    <pattern id="gridPattern" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#005596" stroke-width="0.5" opacity="0.08"/>
+    </pattern>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1080" height="1080" fill="url(#bgGrad)"/>
+  <rect width="1080" height="1080" fill="url(#gridPattern)"/>
+  
+  <!-- Decorative geometric shapes -->
+  <g opacity="0.06">
+    <polygon points="0,200 150,100 150,400" fill="#005596"/>
+    <polygon points="1080,300 930,200 930,500" fill="#005596"/>
+    <polygon points="200,1080 100,930 400,930" fill="#005596"/>
+    <polygon points="880,1080 980,930 680,930" fill="#005596"/>
+  </g>
+  
+  <!-- Calendar icon suggestion - subtle lines -->
+  <g opacity="0.04" transform="translate(840, 60)">
+    <rect x="0" y="0" width="120" height="140" rx="10" fill="#005596"/>
+    <rect x="10" y="30" width="100" height="100" rx="5" fill="#ffffff"/>
+    <line x1="10" y1="60" x2="110" y2="60" stroke="#005596" stroke-width="2"/>
+    <line x1="10" y1="90" x2="110" y2="90" stroke="#005596" stroke-width="2"/>
+    <line x1="10" y1="120" x2="110" y2="120" stroke="#005596" stroke-width="2"/>
+  </g>
+  
+  <!-- Clock icon suggestion - subtle -->
+  <g opacity="0.04" transform="translate(60, 80)">
+    <circle cx="70" cy="70" r="60" fill="none" stroke="#005596" stroke-width="4"/>
+    <line x1="70" y1="70" x2="70" y2="30" stroke="#005596" stroke-width="3"/>
+    <line x1="70" y1="70" x2="100" y2="70" stroke="#005596" stroke-width="3"/>
+    <circle cx="70" cy="70" r="5" fill="#005596"/>
+  </g>
+  
+  <!-- Subtle motivational elements -->
+  <g opacity="0.03">
+    <polygon points="540,100 580,180 500,180" fill="#C6A967"/>
+    <polygon points="540,980 580,900 500,900" fill="#C6A967"/>
+  </g>
+  
+  <!-- Center focal point - subtle star -->
+  <g opacity="0.05" transform="translate(540, 540)">
+    <polygon points="0,-80 20,-25 80,0 20,25 0,80 -20,25 -80,0 -20,-25" fill="#005596"/>
+  </g>
+  
+  <!-- Decorative circles -->
+  <circle cx="100" cy="500" r="150" fill="none" stroke="#005596" stroke-width="0.5" opacity="0.05"/>
+  <circle cx="980" cy="580" r="120" fill="none" stroke="#005596" stroke-width="0.5" opacity="0.05"/>
+  <circle cx="540" cy="200" r="80" fill="none" stroke="#005596" stroke-width="0.5" opacity="0.05"/>
+  
+  <!-- Side lines -->
+  <line x1="40" y1="200" x2="40" y2="880" stroke="#005596" stroke-width="1" opacity="0.05"/>
+  <line x1="1040" y1="200" x2="1040" y2="880" stroke="#005596" stroke-width="1" opacity="0.05"/>
+</svg>

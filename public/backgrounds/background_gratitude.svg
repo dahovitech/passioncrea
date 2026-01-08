@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="gratitudeBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fdf8f0"/>
+      <stop offset="100%" style="stop-color:#f5ebe0"/>
+    </linearGradient>
+    <linearGradient id="goldWarm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#C6A967"/>
+      <stop offset="100%" style="stop-color:#b8925a"/>
+    </linearGradient>
+    <linearGradient id="roseAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8b4b4"/>
+      <stop offset="100%" style="stop-color:#d49090"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1080" height="1080" fill="url(#gratitudeBg)"/>
+  
+  <!-- Heart elements - gratitude/warmth -->
+  <g opacity="0.05" fill="#d49090">
+    <path d="M540,400 C540,350 480,300 420,360 C360,300 300,360 300,420 C300,500 420,600 540,700 C660,600 780,500 780,420 C780,360 720,300 660,360 C600,300 540,350 540,400"/>
+    <path d="M150,150 C150,120 120,100 90,120 C60,100 30,120 30,150 C30,190 60,220 90,240 C120,220 150,190 150,150"/>
+    <path d="M1030,200 C1030,170 1000,150 970,170 C940,150 910,170 910,200 C910,240 940,270 970,290 C1000,270 1030,240 1030,200"/>
+    <path d="M100,900 C100,870 70,850 40,870 C10,850 -20,870 -20,900 C-20,940 10,970 40,990 C70,970 100,940 100,900"/>
+  </g>
+  
+  <!-- Gold accent hearts -->
+  <g opacity="0.08" fill="#C6A967">
+    <path d="M900,150 C900,120 875,100 850,120 C825,100 800,120 800,150 C800,200 850,250 900,300 C950,250 1000,200 1000,150 C1000,120 975,100 950,120 C925,100 900,120 900,150"/>
+    <path d="M200,200 C200,175 180,160 160,175 C140,160 120,175 120,200 C120,235 140,260 160,275 C180,260 200,235 200,200"/>
+  </g>
+  
+  <!-- Gentle curved lines - warmth/flow -->
+  <g fill="none" stroke="#C6A967" stroke-width="1" opacity="0.05">
+    <path d="M0,600 Q200,500 400,600 Q600,700 800,600 Q933,533 1080,600"/>
+    <path d="M0,700 Q200,600 400,700 Q600,800 800,700 Q933,633 1080,700"/>
+  </g>
+  
+  <!-- Decorative circles - unity/wholeness -->
+  <g fill="none" stroke="#005596" stroke-width="0.5" opacity="0.05">
+    <circle cx="540" cy="540" r="450"/>
+    <circle cx="540" cy="540" r="380"/>
+    <circle cx="540" cy="540" r="310"/>
+  </g>
+  
+  <!-- Corner flourishes -->
+  <g opacity="0.06" fill="#C6A967">
+    <!-- Top left -->
+    <path d="M0,0 L100,0 L0,100 Z"/>
+    <!-- Top right -->
+    <path d="M1080,0 L980,0 L1080,100 Z"/>
+    <!-- Bottom left -->
+    <path d="M0,1080 L100,1080 L0,980 Z"/>
+    <!-- Bottom right -->
+    <path d="M1080,1080 L980,1080 L1080,980 Z"/>
+  </g>
+  
+  <!-- Subtle sparkles/stars - appreciation -->
+  <g fill="#C6A967" opacity="0.06">
+    <polygon points="150,80 153,90 163,90 155,97 158,107 150,100 142,107 145,97 137,90 147,90"/>
+    <polygon points="930,100 933,110 943,110 935,117 938,127 930,120 922,127 925,117 917,110 927,110"/>
+    <polygon points="80,500 82,508 90,508 84,514 86,522 80,516 74,522 76,514 70,508 78,508"/>
+    <polygon points="1000,520 1002,528 1010,528 1004,534 1006,542 1000,536 994,542 996,534 990,528 998,528"/>
+  </g>
+  
+  <!-- Gentle vertical lines -->
+  <g stroke="#005596" stroke-width="0.5" opacity="0.03">
+    <line x1="180" y1="100" x2="180" y2="980"/>
+    <line x1="900" y1="100" x2="900" y2="980"/>
+  </g>
+  
+  <!-- Center focal point suggestion -->
+  <g opacity="0.04">
+    <ellipse cx="540" cy="540" rx="300" ry="300" fill="none" stroke="#C6A967" stroke-width="1"/>
+    <ellipse cx="540" cy="540" rx="250" ry="250" fill="none" stroke="#C6A967" stroke-width="0.5"/>
+  </g>
+  
+  <!-- Horizontal framing lines -->
+  <line x1="100" y1="200" x2="980" y2="200" stroke="#C6A967" stroke-width="0.5" opacity="0.04"/>
+  <line x1="100" y1="880" x2="980" y2="880" stroke="#C6A967" stroke-width="0.5" opacity="0.04"/>
+</svg>

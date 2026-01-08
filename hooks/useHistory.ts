@@ -140,6 +140,7 @@ export const useHistory = (initialState: PosterData): UseHistoryReturn => {
       history.present.imagePosX !== newState.imagePosX ||
       history.present.imagePosY !== newState.imagePosY ||
       history.present.backgroundImageUrl !== newState.backgroundImageUrl ||
+      history.present.backgroundOpacity !== newState.backgroundOpacity ||
       history.present.accentColor !== newState.accentColor ||
       history.present.textColor !== newState.textColor ||
       history.present.backgroundColor !== newState.backgroundColor ||

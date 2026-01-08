@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="birthdayBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8f4fc"/>
+      <stop offset="100%" style="stop-color:#d0e8f5"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#C6A967"/>
+      <stop offset="50%" style="stop-color:#ddc085"/>
+      <stop offset="100%" style="stop-color:#C6A967"/>
+    </linearGradient>
+    <radialGradient id="blueOrb" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#4a9fd4"/>
+      <stop offset="100%" style="stop-color:#005596"/>
+    </radialGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1080" height="1080" fill="url(#birthdayBg)"/>
+  
+  <!-- Subtle texture overlay -->
+  <rect width="1080" height="1080" fill="url(#blueOrb)" opacity="0.03"/>
+  
+  <!-- Decorative balloons - bottom corners -->
+  <g opacity="0.08">
+    <!-- Balloon bottom left -->
+    <ellipse cx="80" cy="950" rx="60" ry="75" fill="#005596"/>
+    <path d="M80,1020 L80,1080" stroke="#C6A967" stroke-width="1" opacity="0.5"/>
+    
+    <!-- Balloon bottom right -->
+    <ellipse cx="1000" cy="980" rx="70" ry="85" fill="#005596"/>
+    <path d="M1000,1060 L1000,1080" stroke="#C6A967" stroke-width="1" opacity="0.5"/>
+  </g>
+  
+  <!-- Gold confetti scattered -->
+  <g opacity="0.06">
+    <rect x="50" y="100" width="15" height="15" fill="#C6A967" transform="rotate(15 57 107)"/>
+    <rect x="200" y="80" width="12" height="12" fill="#C6A967" transform="rotate(-20 206 86)"/>
+    <rect x="900" y="120" width="14" height="14" fill="#C6A967" transform="rotate(45 907 127)"/>
+    <rect x="1020" y="200" width="10" height="10" fill="#C6A967" transform="rotate(30 1025 205)"/>
+    <rect x="80" y="300" width="12" height="12" fill="#C6A967" transform="rotate(-10 86 306)"/>
+    <rect x="1000" y="350" width="15" height="15" fill="#C6A967" transform="rotate(60 1007 357)"/>
+    <rect x="540" y="50" width="10" height="10" fill="#C6A967" transform="rotate(25 545 55)"/>
+    <rect x="300" y="150" width="12" height="12" fill="#C6A967" transform="rotate(-35 306 156)"/>
+    <rect x="780" y="180" width="14" height="14" fill="#C6A967" transform="rotate(10 787 187)"/>
+    <rect x="150" y="500" width="11" height="11" fill="#C6A967" transform="rotate(40 155 505)"/>
+    <rect x="920" y="480" width="13" height="13" fill="#C6A967" transform="rotate(-25 926 486)"/>
+  </g>
+  
+  <!-- Spiral ribbons - elegant gold -->
+  <g opacity="0.05" fill="none" stroke="#C6A967" stroke-width="3">
+    <!-- Left ribbon spiral -->
+    <path d="M60,900 Q80,850 100,880 Q120,910 100,940 Q80,970 60,940 Q40,910 60,880"/>
+    <path d="M70,870 Q95,820 120,860 Q145,900 120,940 Q95,980 70,940"/>
+    
+    <!-- Right ribbon spiral -->
+    <path d="M1020,920 Q1040,870 1060,900 Q1080,930 1060,960 Q1040,990 1020,960 Q1000,930 1020,900"/>
+  </g>
+  
+  <!-- Circular bokeh effects -->
+  <g opacity="0.04">
+    <circle cx="120" cy="120" r="40" fill="#005596"/>
+    <circle cx="960" cy="100" r="50" fill="#005596"/>
+    <circle cx="80" cy="400" r="30" fill="#005596"/>
+    <circle cx="1000" cy="380" r="35" fill="#005596"/>
+    <circle cx="540" cy="80" r="25" fill="#005596"/>
+    <circle cx="200" cy="250" r="20" fill="#005596"/>
+    <circle cx="880" cy="280" r="22" fill="#005596"/>
+  </g>
+  
+  <!-- Gold decorative dots -->
+  <g opacity="0.06" fill="#C6A967">
+    <circle cx="180" cy="1000" r="8"/>
+    <circle cx="220" cy="1015" r="6"/>
+    <circle cx="900" cy="1030" r="7"/>
+    <circle cx="950" cy="1010" r="9"/>
+    <circle cx="300" cy="1000" r="5"/>
+    <circle cx="780" cy="1020" r="6"/>
+  </g>
+  
+  <!-- Elegant corner accents -->
+  <g opacity="0.04">
+    <path d="M0,0 L200,0 L0,200 Z" fill="#005596"/>
+    <path d="M1080,0 L880,0 L1080,200 Z" fill="#005596"/>
+    <path d="M0,1080 L200,1080 L0,880 Z" fill="#005596"/>
+    <path d="M1080,1080 L880,1080 L1080,880 Z" fill="#005596"/>
+  </g>
+  
+  <!-- Subtle star/sparkle accents in gold -->
+  <g opacity="0.05" fill="#C6A967">
+    <polygon points="540,100 545,115 560,115 548,125 553,140 540,130 527,140 532,125 520,115 535,115"/>
+    <polygon points="150,600 153,610 163,610 155,617 158,627 150,620 142,627 145,617 137,610 147,610"/>
+    <polygon points="930,620 933,630 943,630 935,637 938,647 930,640 922,647 925,637 917,630 927,630"/>
+  </g>
+  
+  <!-- Central clear space indicator (subtle) -->
+  <ellipse cx="540" cy="540" rx="350" ry="350" fill="none" stroke="#005596" stroke-width="0.5" opacity="0.03"/>
+</svg>

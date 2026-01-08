@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#005596;stop-opacity:0.08" />
+      <stop offset="100%" style="stop-color:#00AEEF;stop-opacity:0.12" />
+    </linearGradient>
+    <pattern id="gridPattern2" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#005596" stroke-width="0.5" opacity="0.15"/>
+    </pattern>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#bgGrad2)"/>
+  <rect width="800" height="600" fill="url(#gridPattern2)"/>
+  
+  <!-- Decorative geometric elements -->
+  <g opacity="0.1">
+    <circle cx="100" cy="100" r="80" fill="#C99700"/>
+    <circle cx="700" cy="500" r="120" fill="#005596"/>
+    <rect x="150" y="400" width="100" height="100" fill="none" stroke="#C99700" stroke-width="2" transform="rotate(45 200 450)"/>
+    <rect x="600" y="150" width="80" height="80" fill="none" stroke="#005596" stroke-width="2" transform="rotate(15 640 190)"/>
+  </g>
+  
+  <!-- Floating particles -->
+  <g fill="#C99700" opacity="0.15">
+    <circle cx="200" cy="150" r="4"/>
+    <circle cx="350" cy="280" r="3"/>
+    <circle cx="500" cy="180" r="5"/>
+    <circle cx="650" cy="350" r="4"/>
+    <circle cx="250" cy="450" r="3"/>
+    <circle cx="450" cy="500" r="4"/>
+    <circle cx="550" cy="400" r="3"/>
+  </g>
+  
+  <!-- Progress/chevron elements -->
+  <g opacity="0.08">
+    <path d="M 50 300 L 100 280 L 100 320 Z" fill="#005596"/>
+    <path d="M 750 300 L 700 280 L 700 320 Z" fill="#005596"/>
+    <path d="M 400 50 L 420 100 L 380 100 Z" fill="#C99700"/>
+    <path d="M 400 550 L 420 500 L 380 500 Z" fill="#C99700"/>
+  </g>
+</svg>

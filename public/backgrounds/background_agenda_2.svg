@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="bgGradB2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#005596;stop-opacity:0.12" />
+      <stop offset="100%" style="stop-color:#00AEEF;stop-opacity:0.08" />
+    </linearGradient>
+    <pattern id="checkerPatternB2" width="50" height="50" patternUnits="userSpaceOnUse">
+      <rect width="25" height="25" fill="#005596" opacity="0.05"/>
+      <rect x="25" width="25" height="25" fill="#005596" opacity="0.1"/>
+      <rect y="25" width="25" height="25" fill="#005596" opacity="0.1"/>
+      <rect x="25" y="25" width="25" height="25" fill="#005596" opacity="0.05"/>
+    </pattern>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#bgGradB2)"/>
+  <rect width="800" height="600" fill="url(#checkerPatternB2)"/>
+  
+  <!-- Agenda list visualization -->
+  <g opacity="0.1">
+    <rect x="150" y="120" width="500" height="80" rx="10" fill="#005596"/>
+    <rect x="170" y="140" width="40" height="40" rx="5" fill="#C99700"/>
+    <rect x="230" y="150" width="300" height="15" rx="3" fill="white"/>
+    <rect x="230" y="175" width="200" height="10" rx="2" fill="white" opacity="0.6"/>
+    
+    <rect x="150" y="220" width="500" height="80" rx="10" fill="#005596"/>
+    <rect x="170" y="240" width="40" height="40" rx="5" fill="#C99700"/>
+    <rect x="230" y="250" width="300" height="15" rx="3" fill="white"/>
+    <rect x="230" y="275" width="200" height="10" rx="2" fill="white" opacity="0.6"/>
+    
+    <rect x="150" y="320" width="500" height="80" rx="10" fill="#005596"/>
+    <rect x="170" y="340" width="40" height="40" rx="5" fill="#C99700"/>
+    <rect x="230" y="350" width="300" height="15" rx="3" fill="white"/>
+    <rect x="230" y="375" width="200" height="10" rx="2" fill="white" opacity="0.6"/>
+    
+    <rect x="150" y="420" width="500" height="80" rx="10" fill="#005596"/>
+    <rect x="170" y="440" width="40" height="40" rx="5" fill="#C99700"/>
+    <rect x="230" y="450" width="300" height="15" rx="3" fill="white"/>
+    <rect x="230" y="475" width="200" height="10" rx="2" fill="white" opacity="0.6"/>
+  </g>
+  
+  <!-- Calendar icon -->
+  <g transform="translate(680, 50)" opacity="0.1">
+    <rect width="80" height="90" rx="8" fill="#C99700"/>
+    <rect y="0" width="80" height="25" rx="8" fill="#005596"/>
+    <rect x="10" y="35" width="15" height="15" rx="2" fill="white"/>
+    <rect x="35" y="35" width="15" height="15" rx="2" fill="white"/>
+    <rect x="55" y="35" width="15" height="15" rx="2" fill="white"/>
+  </g>
+</svg>

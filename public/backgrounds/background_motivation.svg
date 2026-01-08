@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="motivationBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#005596"/>
+      <stop offset="100%" style="stop-color:#002a47"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#C6A967"/>
+      <stop offset="100%" style="stop-color:#a88a4f"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1080" height="1080" fill="url(#motivationBg)"/>
+  
+  <!-- Subtle quote marks background -->
+  <g opacity="0.05" fill="#ffffff">
+    <text x="100" y="200" font-family="Georgia, serif" font-size="300" font-weight="bold">"</text>
+    <text x="750" y="900" font-family="Georgia, serif" font-size="400" font-weight="bold">"</text>
+  </g>
+  
+  <!-- Rising arrow elements - progress/growth -->
+  <g opacity="0.08">
+    <polygon points="540,100 580,200 500,200" fill="#C6A967"/>
+    <polygon points="540,300 580,400 500,400" fill="#C6A967"/>
+    <polygon points="540,500 580,600 500,600" fill="#C6A967"/>
+    <polygon points="540,700 580,800 500,800" fill="#C6A967"/>
+    <polygon points="540,900 580,1000 500,1000" fill="#C6A967"/>
+  </g>
+  
+  <!-- Light rays emanating from top center -->
+  <g opacity="0.04" fill="#ffffff">
+    <polygon points="540,0 480,400 600,400"/>
+    <polygon points="540,0 350,450 450,450"/>
+    <polygon points="540,0 630,450 730,450"/>
+    <polygon points="540,0 200,550 350,550"/>
+    <polygon points="540,0 730,550 880,550"/>
+  </g>
+  
+  <!-- Circular elements suggesting unity/wholeness -->
+  <g fill="none" stroke="#ffffff" stroke-width="0.5" opacity="0.05">
+    <circle cx="540" cy="540" r="400"/>
+    <circle cx="540" cy="540" r="350"/>
+    <circle cx="540" cy="540" r="300"/>
+    <circle cx="540" cy="540" r="250"/>
+    <circle cx="540" cy="540" r="200"/>
+  </g>
+  
+  <!-- Star accent at center -->
+  <g opacity="0.08" fill="#C6A967">
+    <polygon points="540,350 555,420 630,420 565,465 595,540 540,490 485,540 515,465 450,420 525,420"/>
+  </g>
+  
+  <!-- Vertical lines - structure/growth -->
+  <g opacity="0.03" stroke="#ffffff" stroke-width="1">
+    <line x1="150" y1="100" x2="150" y2="980"/>
+    <line x1="930" y1="100" x2="930" y2="980"/>
+    <line x1="100" y1="200" x2="100" y2="880"/>
+    <line x1="980" y1="200" x2="980" y2="880"/>
+  </g>
+  
+  <!-- Corner brackets - framing/importance -->
+  <g stroke="#C6A967" stroke-width="2" fill="none" opacity="0.1">
+    <path d="M50,100 L50,50 L100,50"/>
+    <path d="M980,50 L1030,50 L1030,100"/>
+    <path d="M50,980 L50,1030 L100,1030"/>
+    <path d="M980,1030 L1030,1030 L1030,980"/>
+  </g>
+  
+  <!-- Small accent dots suggesting stars in the sky -->
+  <g fill="#ffffff" opacity="0.1">
+    <circle cx="200" cy="150" r="3"/>
+    <circle cx="880" cy="180" r="2"/>
+    <circle cx="350" cy="120" r="2"/>
+    <circle cx="730" cy="140" r="3"/>
+    <circle cx="100" cy="300" r="2"/>
+    <circle cx="980" cy="320" r="2"/>
+    <circle cx="450" cy="100" r="1.5"/>
+    <circle cx="630" cy="110" r="1.5"/>
+  </g>
+  
+  <!-- Horizontal line suggesting horizon/achievement -->
+  <line x1="0" y1="800" x2="1080" y2="800" stroke="#C6A967" stroke-width="1" opacity="0.05"/>
+</svg>

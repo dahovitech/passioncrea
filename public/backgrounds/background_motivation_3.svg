@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="motivationGrad3" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" style="stop-color:#C99700;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#005596;stop-opacity:0.08" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#motivationGrad3)"/>
+  
+  <!-- Star constellation -->
+  <g fill="#C99700" opacity="0.15">
+    <polygon points="200,150 203,162 215,162 205,170 209,182 200,174 191,182 195,170 185,162 197,162" transform="scale(1.2)"/>
+    <polygon points="350,100 352,110 362,110 354,117 358,127 350,120 342,127 346,117 338,110 348,110"/>
+    <polygon points="500,130 502,140 512,140 504,147 508,157 500,150 492,157 496,147 488,140 498,140"/>
+    <polygon points="650,180 652,190 662,190 654,197 658,207 650,200 642,207 646,197 638,190 648,190" transform="scale(1.1)"/>
+    <polygon points="280,280 282,290 292,290 284,297 288,307 280,300 272,307 276,297 268,290 278,290"/>
+    <polygon points="550,300 552,310 562,310 554,317 558,327 550,320 542,327 546,317 538,310 548,310"/>
+  </g>
+  
+  <!-- Connecting lines between stars -->
+  <g stroke="#005596" stroke-width="0.5" opacity="0.08">
+    <line x1="240" y1="165" x2="350" y2="115"/>
+    <line x1="360" y1="115" x2="500" y2="145"/>
+    <line x1="510" y1="145" x2="650" y2="195"/>
+    <line x1="350" y1="115" x2="280" y2="295"/>
+    <line x1="500" y1="145" x2="550" y2="315"/>
+  </g>
+  
+  <!-- Inspiration light bulb -->
+  <g transform="translate(400, 350)" opacity="0.08">
+    <ellipse cx="0" cy="-30" rx="40" ry="50" fill="#C99700"/>
+    <rect x="-5" y="15" width="10" height="30" fill="#005596"/>
+    <rect x="-15" y="40" width="30" height="8" rx="2" fill="#C99700"/>
+  </g>
+  
+  <!-- Rays of inspiration -->
+  <g stroke="#C99700" stroke-width="2" opacity="0.08">
+    <line x1="400" y1="250" x2="400" y2="180"/>
+    <line x1="400" y1="250" x2="340" y2="200"/>
+    <line x1="400" y1="250" x2="460" y2="200"/>
+    <line x1="400" y1="250" x2="300" y2="250"/>
+    <line x1="400" y1="250" x2="500" y2="250"/>
+  </g>
+  
+  <!-- Success mountains in distance -->
+  <g opacity="0.06">
+    <polygon points="0,600 150,400 300,600" fill="#005596"/>
+    <polygon points="200,600 400,350 600,600" fill="#C99700"/>
+    <polygon points="500,600 700,420 900,600" fill="#005596"/>
+  </g>
+  
+  <!-- Achievement podium -->
+  <g opacity="0.08">
+    <rect x="250" y="500" width="100" height="100" fill="#C99700"/>
+    <rect x="350" y="480" width="100" height="120" fill="#005596"/>
+    <rect x="450" y="510" width="100" height="90" fill="#C99700"/>
+  </g>
+</svg>

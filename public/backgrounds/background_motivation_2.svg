@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="motivationGrad2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#005596;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#C99700;stop-opacity:0.08" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#motivationGrad2)"/>
+  
+  <!-- Ascending steps/chevrons -->
+  <g opacity="0.1">
+    <path d="M 100 500 L 200 400 L 300 400 L 300 500 Z" fill="#005596"/>
+    <path d="M 250 400 L 350 300 L 450 300 L 450 400 Z" fill="#C99700"/>
+    <path d="M 400 300 L 500 200 L 600 200 L 600 300 Z" fill="#005596"/>
+    <path d="M 550 200 L 650 100 L 750 100 L 750 200 Z" fill="#C99700"/>
+  </g>
+  
+  <!-- Mountain peaks -->
+  <g opacity="0.08">
+    <polygon points="100,550 250,350 400,550" fill="#005596"/>
+    <polygon points="300,550 450,300 600,550" fill="#C99700"/>
+    <polygon points="500,550 650,380 800,550" fill="#005596"/>
+  </g>
+  
+  <!-- Rising arrow indicators -->
+  <g fill="#C99700" opacity="0.12">
+    <polygon points="150,450 170,420 190,450 175,450 175,480 165,480 165,450 Z"/>
+    <polygon points="400,300 420,270 440,300 425,300 425,330 415,330 415,300 Z"/>
+    <polygon points="600,180 620,150 640,180 625,180 625,210 615,210 615,180 Z"/>
+  </g>
+  
+  <!-- Achievement badges -->
+  <g opacity="0.08">
+    <circle cx="700" cy="150" r="40" fill="none" stroke="#C99700" stroke-width="3"/>
+    <polygon points="700,120 710,140 735,140 715,155 725,180 700,165 675,180 685,155 665,140 690,140" fill="#C99700"/>
+    
+    <circle cx="650" cy="450" r="30" fill="none" stroke="#005596" stroke-width="2"/>
+    <polygon points="650,430 655,442 668,442 658,450 662,462 650,455 638,462 642,450 632,442 645,442" fill="#005596"/>
+    
+    <circle cx="150" cy="300" r="25" fill="none" stroke="#C99700" stroke-width="2"/>
+    <polygon points="150,285 153,293 162,293 155,298 158,307 150,302 142,307 145,298 138,293 147,293" fill="#C99700"/>
+  </g>
+  
+  <!-- Light rays from top -->
+  <g opacity="0.06">
+    <polygon points="400,0 350,100 380,100" fill="#C99700"/>
+    <polygon points="400,0 420,100 450,100" fill="#005596"/>
+    <polygon points="400,0 300,120 340,120" fill="#005596"/>
+    <polygon points="400,0 460,120 500,120" fill="#C99700"/>
+  </g>
+  
+  <!-- Text lines representing wisdom -->
+  <g opacity="0.08">
+    <rect x="550" y="320" width="180" height="8" rx="2" fill="#005596"/>
+    <rect x="580" y="340" width="120" height="6" rx="2" fill="#C99700"/>
+    <rect x="560" y="360" width="150" height="6" rx="2" fill="#005596"/>
+    
+    <rect x="100" y="180" width="150" height="8" rx="2" fill="#C99700"/>
+    <rect x="120" y="200" width="100" height="6" rx="2" fill="#005596"/>
+  </g>
+</svg>

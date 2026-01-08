@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="birthdayGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#005596;stop-opacity:0.06" />
+      <stop offset="50%" style="stop-color:#C99700;stop-opacity:0.08" />
+      <stop offset="100%" style="stop-color:#005596;stop-opacity:0.06" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#birthdayGrad2)"/>
+  
+  <!-- Elegant balloon strings -->
+  <g stroke="#C99700" stroke-width="1.5" fill="none" opacity="0.2">
+    <path d="M 150 300 Q 160 200 200 100"/>
+    <path d="M 250 300 Q 260 180 300 80"/>
+    <path d="M 650 300 Q 640 200 600 100"/>
+    <path d="M 550 300 Q 540 180 500 80"/>
+    <path d="M 400 320 Q 410 220 400 120"/>
+  </g>
+  
+  <!-- Balloons in gold and blue -->
+  <g opacity="0.12">
+    <!-- Gold balloons -->
+    <ellipse cx="200" cy="120" rx="35" ry="45" fill="#C99700"/>
+    <polygon points="200,165 190,180 210,180" fill="#C99700"/>
+    
+    <ellipse cx="300" cy="100" rx="30" ry="40" fill="#C99700"/>
+    <polygon points="300,140 292,152 308,152" fill="#C99700"/>
+    
+    <ellipse cx="500" cy="100" rx="30" ry="40" fill="#C99700"/>
+    <polygon points="500,140 492,152 508,152" fill="#C99700"/>
+    
+    <ellipse cx="600" cy="120" rx="35" ry="45" fill="#C99700"/>
+    <polygon points="600,165 592,180 608,180" fill="#C99700"/>
+    
+    <!-- Blue balloons -->
+    <ellipse cx="250" cy="80" rx="28" ry="38" fill="#005596"/>
+    <polygon points="250,118 242,130 258,130" fill="#005596"/>
+    
+    <ellipse cx="400" cy="130" rx="32" ry="42" fill="#005596"/>
+    <polygon points="400,172 392,185 408,185" fill="#005596"/>
+    
+    <ellipse cx="550" cy="80" rx="28" ry="38" fill="#005596"/>
+    <polygon points="550,118 542,130 558,130" fill="#005596"/>
+  </g>
+  
+  <!-- Confetti dots -->
+  <g fill="#C99700" opacity="0.15">
+    <circle cx="100" cy="200" r="4"/>
+    <circle cx="120" cy="280" r="3"/>
+    <circle cx="80" cy="350" r="5"/>
+    <circle cx="700" cy="250" r="4"/>
+    <circle cx="720" cy="180" r="3"/>
+    <circle cx="680" cy="380" r="5"/>
+    <circle cx="400" cy="50" r="3"/>
+    <circle cx="380" cy="550" r="4"/>
+    <circle cx="420" cy="570" r="3"/>
+  </g>
+  
+  <!-- Star decorations -->
+  <g fill="#005596" opacity="0.1">
+    <polygon points="150,450 155,465 170,465 158,475 163,490 150,480 137,490 142,475 130,465 145,465"/>
+    <polygon points="650,400 653,410 663,410 655,417 658,427 650,420 642,427 645,417 637,410 647,410" transform="scale(1.2)"/>
+    <polygon points="350,500 353,510 363,510 355,517 358,527 350,520 342,527 345,517 337,510 347,510" transform="scale(0.8)"/>
+  </g>
+  
+  <!-- Decorative border -->
+  <rect x="40" y="40" width="720" height="520" rx="20" fill="none" stroke="#C99700" stroke-width="2" opacity="0.1"/>
+  <rect x="55" y="55" width="690" height="490" rx="15" fill="none" stroke="#005596" stroke-width="1" opacity="0.08"/>
+</svg>

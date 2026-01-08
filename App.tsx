@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TemplateType, PosterData, Partner, FormationModule, AssistantTrainer, SocialIcon } from './types';
-import { TEMPLATES, JCI_BLUE, JCI_DARK, JCI_WHITE, LOGO_OPTIONS, FONT_OPTIONS, BIRTHDAY_TITLE_FONTS, DEFAULT_PARTNERS, LOGO_MANDAT_2026, SOCIAL_ICONS } from './constants';
+import { TEMPLATES, JCI_BLUE, JCI_DARK, JCI_WHITE, LOGO_OPTIONS, FONT_OPTIONS, BIRTHDAY_TITLE_FONTS, DEFAULT_PARTNERS, LOGO_MANDAT_2026, SOCIAL_ICONS, BACKGROUND_PRESETS, JCI_PALETTE } from './constants';
 import TemplateRenderer from './components/TemplateRenderer';
-import { Download, Plus, Layout, Palette, X, RefreshCcw, UserCircle, Layers, Trash2, UserPlus, ListPlus, Type as TypeIcon, Image as ImageIcon, Settings, Share2, ImageIcon as BgIcon, CalendarDays, Award } from 'lucide-react';
+import { Download, Plus, Layout, Palette, X, RefreshCcw, UserCircle, Layers, Trash2, UserPlus, ListPlus, Type as TypeIcon, Image as ImageIcon, Settings, Share2, ImageIcon as BgIcon, CalendarDays, Award, Check, SlidersHorizontal, Filter } from 'lucide-react';
 import * as htmlToImage from 'html-to-image';
 
 // Hooks
@@ -13,18 +13,58 @@ import { HelpProvider, useHelp } from './contexts/HelpContext';
 // Components
 import { HistoryControls } from './components/HistoryControls';
 import { ZoomControls } from './components/ZoomControls';
+
+// Arrière-plans par défaut pour chaque template et variante
+const DEFAULT_BACKGROUNDS: Record<TemplateType, Record<number, string>> = {
+  [TemplateType.AGENDA]: {
+    1: '/backgrounds/background_agenda.svg',
+    2: '/backgrounds/background_agenda_2.svg',
+    3: '/backgrounds/background_agenda_3.svg'
+  },
+  [TemplateType.FORMATION]: {
+    1: '/backgrounds/background_formation.svg',
+    2: '/backgrounds/background_formation_2.svg',
+    3: '/backgrounds/background_formation_3.svg'
+  },
+  [TemplateType.BIRTHDAY]: {
+    1: '/backgrounds/background_birthday.svg',
+    2: '/backgrounds/background_birthday_2.svg',
+    3: '/backgrounds/background_birthday_3.svg'
+  },
+  [TemplateType.MOTIVATION]: {
+    1: '/backgrounds/background_motivation.svg',
+    2: '/backgrounds/background_motivation_2.svg',
+    3: '/backgrounds/background_motivation_3.svg'
+  },
+  [TemplateType.GRATITUDE]: {
+    1: '/backgrounds/background_gratitude.svg',
+    2: '/backgrounds/background_gratitude_2.svg',
+    3: '/backgrounds/background_gratitude_3.svg'
+  },
+  [TemplateType.GREETINGS]: {
+    1: '/backgrounds/background_gratitude.svg',
+    2: '/backgrounds/background_gratitude_2.svg',
+    3: '/backgrounds/background_gratitude_3.svg'
+  }
+};
+
+// Fonction pour obtenir l'arrière-plan par défaut
+const getDefaultBackground = (templateType: TemplateType, variant: number): string => {
+  return DEFAULT_BACKGROUNDS[templateType]?.[variant] || DEFAULT_BACKGROUNDS[templateType]?.[1] || '';
+};
 import { HelpModal } from './components/HelpModal';
 
 const App: React.FC = () => {
   const [mandateLogo, setMandateLogo] = React.useState(LOGO_MANDAT_2026);
   const [isLoading, setIsLoading] = React.useState(false);
   const [activeTab, setActiveTab] = React.useState<'design' | 'branding' | 'content' | 'partners'>('design');
+  const [bgFilter, setBgFilter] = React.useState<string>('Tout');
 
   // Initial data for the poster
   const initialData: PosterData = {
     templateType: TemplateType.AGENDA,
     variant: 1,
-    primaryText: 'ÉVÉNEMENTS À VENIR',
+    primaryText: 'AGENDA',
     secondaryText: 'MAI 2024',
     name: '',
     role: '',
@@ -34,6 +74,7 @@ const App: React.FC = () => {
     imagePosX: 0,
     imagePosY: 0,
     backgroundImageUrl: '',
+    backgroundOpacity: 0.3,
     agendaItems: [{ id: '1', day: '06', monthShort: 'AVR', title: 'Réunion de zone' }],
     formationModules: [{ id: '1', title: 'Module 1: Leadership JCI', hour: '09:00' }],
     assistants: [],
@@ -60,16 +101,24 @@ const App: React.FC = () => {
   // Get help context
   const { hasSeenHelp, startHelp, markHelpSeen } = useHelp();
 
+  // Toutes les catégories d'arrière-plans disponibles
+  const categories = ['Tout', 'Anniversaires', 'Formation', 'Agenda', 'Motivation', 'Gratitude'];
+  const filteredBackgrounds = bgFilter === 'Tout' 
+    ? BACKGROUND_PRESETS
+    : BACKGROUND_PRESETS.filter(bg => bg.category === bgFilter);
+
   const handleTemplateChange = (newType: TemplateType) => {
+    const defaultBg = getDefaultBackground(newType, 1);
     const defaults: Record<TemplateType, Partial<PosterData>> = {
       [TemplateType.AGENDA]: {
-        primaryText: 'ÉVÉNEMENTS À VENIR',
+        primaryText: 'AGENDA',
         secondaryText: 'MAI 2024',
         name: '',
         role: '',
         date: '01 MAI',
         imageUrl: '',
-        backgroundImageUrl: '',
+        backgroundImageUrl: defaultBg,
+        backgroundOpacity: 0.3,
         agendaItems: [{ id: '1', day: '01', monthShort: 'MAI', title: 'Réunion de coordination' }],
         formationModules: [{ id: '1', title: 'Module 1: Leadership', hour: '09:00' }],
         assistants: []
@@ -81,7 +130,8 @@ const App: React.FC = () => {
         role: 'Expert',
         date: '15 MAI 2024',
         imageUrl: '',
-        backgroundImageUrl: '',
+        backgroundImageUrl: defaultBg,
+        backgroundOpacity: 0.3,
         agendaItems: [{ id: '1', day: '06', monthShort: 'AVR', title: 'Réunion de zone' }],
         formationModules: [{ id: '1', title: 'Module 1: Leadership JCI', hour: '09:00' }],
         assistants: []
@@ -93,7 +143,8 @@ const App: React.FC = () => {
         role: 'Rôle',
         date: '15 MAI',
         imageUrl: '',
-        backgroundImageUrl: '',
+        backgroundImageUrl: defaultBg,
+        backgroundOpacity: 0.3,
         agendaItems: [{ id: '1', day: '06', monthShort: 'AVR', title: 'Réunion de zone' }],
         formationModules: [{ id: '1', title: 'Module 1: Leadership', hour: '09:00' }],
         assistants: [],
@@ -112,7 +163,8 @@ const App: React.FC = () => {
         imageZoom: 1,
         imagePosX: 0,
         imagePosY: 0,
-        backgroundImageUrl: '',
+        backgroundImageUrl: defaultBg,
+        backgroundOpacity: 0.3,
         agendaItems: [{ id: '1', day: '06', monthShort: 'AVR', title: 'Réunion de zone' }],
         formationModules: [{ id: '1', title: 'Module 1: Leadership', hour: '09:00' }],
         assistants: []
@@ -127,12 +179,10 @@ const App: React.FC = () => {
         imageZoom: 1,
         imagePosX: 0,
         imagePosY: 0,
-        backgroundImageUrl: '',
-        backgroundImageZoom: 1,
-        backgroundImagePosX: 0,
-        backgroundImagePosY: 0,
+        backgroundImageUrl: defaultBg,
+        backgroundOpacity: 0.3,
         agendaItems: [{ id: '1', day: '06', monthShort: 'AVR', title: 'Réunion de zone' }],
-        formationModules: [{ id: '1', title: 'Module 1: Leadership', hour: '09:00' }],
+        formationModules: [{ id: '1', title: 'Module 1: Leadership JCI', hour: '09:00' }],
         assistants: []
       },
       [TemplateType.GREETINGS]: {
@@ -145,7 +195,8 @@ const App: React.FC = () => {
         imageZoom: 1,
         imagePosX: 0,
         imagePosY: 0,
-        backgroundImageUrl: '',
+        backgroundImageUrl: defaultBg,
+        backgroundOpacity: 0.3,
         agendaItems: [{ id: '1', day: '06', monthShort: 'AVR', title: 'Réunion de zone' }],
         formationModules: [{ id: '1', title: 'Module 1: Leadership', hour: '09:00' }],
         assistants: []
@@ -162,8 +213,16 @@ const App: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    push({ ...data, [name]: value });
+    push({ ...data, [name]: name === 'backgroundOpacity' ? parseFloat(value) : value });
   };
+
+  // Mettre à jour l'arrière-plan par défaut quand la variante change
+  useEffect(() => {
+    const defaultBg = getDefaultBackground(data.templateType, data.variant);
+    if (data.backgroundImageUrl !== defaultBg) {
+      push({ ...data, backgroundImageUrl: defaultBg });
+    }
+  }, [data.variant]);
 
   // Handler for image manipulation (zoom and position)
   const handleUpdateData = (newData: Partial<PosterData>) => {
@@ -245,7 +304,7 @@ const App: React.FC = () => {
       const images = Array.from(node.querySelectorAll('img'));
       for (const img of images) {
         if (!(img as HTMLImageElement).complete) {
-          await new Promise(resolve => {
+          await new Promise<void>(resolve => {
             (img as HTMLImageElement).onload = () => resolve();
             (img as HTMLImageElement).onerror = () => resolve();
           });
@@ -286,7 +345,7 @@ const App: React.FC = () => {
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-slate-100 font-sans h-screen overflow-hidden" id="app-container">
-      {/* SIDEBAR - LÉGÈREMENT ÉLARGIE POUR LA LISIBILITÉ (320px) */}
+      {/* SIDEBAR */}
       <aside className="w-full md:w-[320px] bg-white border-r flex flex-col shadow-xl z-30 overflow-hidden shrink-0" id="sidebar">
         <div className="p-3 border-b flex items-center justify-between bg-white">
           <div className="flex items-center gap-2">
@@ -369,26 +428,104 @@ const App: React.FC = () => {
               </section>
 
               <section className="bg-blue-50/20 p-2.5 rounded-xl space-y-2 border border-blue-100/50">
-                <h2 className="text-[11px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><BgIcon size={12}/> Fond & Couleurs</h2>
-                <div className="grid grid-cols-2 gap-2">
-                  <div className="flex flex-col gap-1">
-                    <label className="text-[9px] font-bold text-slate-400 uppercase ml-0.5">Fond</label>
-                    <div className="flex gap-1.5 items-center bg-white p-1 rounded-lg border">
-                      <input type="color" name="backgroundColor" value={data.backgroundColor} onChange={handleInputChange} className="w-4 h-4 rounded-md border-none p-0 cursor-pointer overflow-hidden" />
-                      <span className="text-[10px] font-mono opacity-60 uppercase truncate">{data.backgroundColor}</span>
+                <h2 className="text-[11px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><BgIcon size={12}/> Illustrations de Fond</h2>
+                
+                {/* Background Categories Filter */}
+                <div className="flex flex-wrap gap-1 mb-2">
+                   {categories.map(cat => (
+                     <button key={cat} onClick={() => setBgFilter(cat)}
+                       className={`px-2 py-0.5 rounded-full text-[8px] font-black uppercase transition-all ${bgFilter === cat ? 'bg-[#005596] text-white shadow-sm' : 'bg-white text-slate-400 border border-slate-200'}`}>
+                       {cat}
+                     </button>
+                   ))}
+                </div>
+
+                <div className="grid grid-cols-2 gap-1.5 max-h-48 overflow-y-auto pr-1">
+                  {filteredBackgrounds.map((preset, index) => (
+                    <button 
+                      key={index} 
+                      onClick={() => push({ ...data, backgroundImageUrl: preset.url, backgroundOpacity: data.backgroundOpacity || 0.3 })}
+                      className={`group relative h-12 rounded-lg overflow-hidden border-2 transition-all ${data.backgroundImageUrl === preset.url ? 'border-[#005596] ring-2 ring-blue-100' : 'border-slate-100 hover:border-blue-300'}`}
+                      title={preset.label}
+                    >
+                      <img src={preset.url} className="w-full h-full object-cover" />
+                      <div className={`absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors ${data.backgroundImageUrl === preset.url ? 'opacity-100' : 'opacity-0'}`}>
+                        <Check size={14} className="text-white" />
+                      </div>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Opacity Control - Functional for all templates */}
+                <div className="mt-3 bg-white p-2.5 rounded-xl border border-blue-100 shadow-sm">
+                  <div className="flex justify-between items-center mb-1.5">
+                    <label className="text-[9px] font-black text-slate-500 uppercase flex items-center gap-1.5">
+                      <SlidersHorizontal size={10} className="text-[#005596]"/> Opacité de l'Illustration
+                    </label>
+                    <span className="text-[10px] font-black text-[#005596] bg-blue-50 px-1.5 py-0.5 rounded border border-blue-100">{Math.round((data.backgroundOpacity || 0) * 100)}%</span>
+                  </div>
+                  <input 
+                    type="range" 
+                    name="backgroundOpacity"
+                    min="0" 
+                    max="1" 
+                    step="0.01" 
+                    value={data.backgroundOpacity || 0}
+                    onChange={handleInputChange}
+                    className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-[#005596]"
+                  />
+                  <p className="text-[8px] text-slate-400 mt-1 italic text-center">Standard JCI : Gardez entre 15% et 35% pour la lisibilité.</p>
+                </div>
+
+                <div className="grid grid-cols-1 gap-3 mt-3">
+                  {/* Fond Uni Section */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[9px] font-bold text-slate-400 uppercase ml-0.5">Fond Uni</label>
+                    <div className="bg-white p-1.5 rounded-lg border space-y-2 shadow-sm">
+                      <div className="flex flex-wrap gap-1">
+                        {JCI_PALETTE.map(color => (
+                          <button
+                            key={`bg-${color.value}`}
+                            onClick={() => push({ ...data, backgroundColor: color.value })}
+                            className={`w-5 h-5 rounded-md border-2 transition-all ${data.backgroundColor === color.value ? 'border-blue-500 scale-110' : 'border-transparent'}`}
+                            style={{ backgroundColor: color.value }}
+                            title={color.label}
+                          />
+                        ))}
+                      </div>
+                      <div className="flex gap-2 items-center pt-1 border-t border-slate-50">
+                        <input type="color" name="backgroundColor" value={data.backgroundColor} onChange={handleInputChange} className="w-4 h-4 rounded-md border-none p-0 cursor-pointer overflow-hidden shrink-0" />
+                        <span className="text-[10px] font-mono text-slate-400 uppercase truncate">{data.backgroundColor}</span>
+                      </div>
                     </div>
                   </div>
-                  <div className="flex flex-col gap-1">
+
+                  {/* Accent Color Section */}
+                  <div className="flex flex-col gap-1.5">
                     <label className="text-[9px] font-bold text-slate-400 uppercase ml-0.5">Accent</label>
-                    <div className="flex gap-1.5 items-center bg-white p-1 rounded-lg border">
-                      <input type="color" name="accentColor" value={data.accentColor} onChange={handleInputChange} className="w-4 h-4 rounded-md border-none p-0 cursor-pointer overflow-hidden" />
-                      <span className="text-[10px] font-mono opacity-60 uppercase truncate">{data.accentColor}</span>
+                    <div className="bg-white p-1.5 rounded-lg border space-y-2 shadow-sm">
+                      <div className="flex flex-wrap gap-1">
+                        {JCI_PALETTE.map(color => (
+                          <button
+                            key={`acc-${color.value}`}
+                            onClick={() => push({ ...data, accentColor: color.value })}
+                            className={`w-5 h-5 rounded-md border-2 transition-all ${data.accentColor === color.value ? 'border-blue-500 scale-110' : 'border-transparent'}`}
+                            style={{ backgroundColor: color.value }}
+                            title={color.label}
+                          />
+                        ))}
+                      </div>
+                      <div className="flex gap-2 items-center pt-1 border-t border-slate-50">
+                        <input type="color" name="accentColor" value={data.accentColor} onChange={handleInputChange} className="w-4 h-4 rounded-md border-none p-0 cursor-pointer overflow-hidden shrink-0" />
+                        <span className="text-[10px] font-mono text-slate-400 uppercase truncate">{data.accentColor}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div className="flex gap-1.5">
+                
+                <div className="flex gap-1.5 pt-1">
                   <label className="flex-1 flex items-center justify-center gap-2 p-1.5 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-slate-50 text-[10px] font-bold uppercase transition-colors">
-                    <BgIcon size={12} className="text-slate-400"/> Image de Fond
+                    <BgIcon size={12} className="text-slate-400"/> Importer Perso
                     <input type="file" onChange={(e) => handleImageUpload(e, 'backgroundImageUrl')} className="hidden" accept="image/*" />
                   </label>
                   {data.backgroundImageUrl && (
@@ -437,14 +574,12 @@ const App: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Image Manipulation Controls */}
                 {data.imageUrl && (
                   <section className="bg-slate-50 p-2.5 rounded-xl border border-slate-200 space-y-3">
                     <h3 className="text-[11px] font-black text-[#005596] uppercase tracking-widest flex items-center gap-1.5">
                       <ImageIcon size={12}/> Ajustage de l'Image
                     </h3>
                     
-                    {/* Zoom Control */}
                     <div className="space-y-1">
                       <div className="flex justify-between items-center">
                         <label className="text-[9px] font-bold text-slate-500 uppercase">Zoom</label>
@@ -461,7 +596,6 @@ const App: React.FC = () => {
                       />
                     </div>
 
-                    {/* Position X Control */}
                     <div className="space-y-1">
                       <div className="flex justify-between items-center">
                         <label className="text-[9px] font-bold text-slate-500 uppercase">Position X</label>
@@ -478,7 +612,6 @@ const App: React.FC = () => {
                       />
                     </div>
 
-                    {/* Position Y Control */}
                     <div className="space-y-1">
                       <div className="flex justify-between items-center">
                         <label className="text-[9px] font-bold text-slate-500 uppercase">Position Y</label>
@@ -495,7 +628,6 @@ const App: React.FC = () => {
                       />
                     </div>
 
-                    {/* Reset Button */}
                     <button 
                       onClick={() => push({ ...data, imageZoom: 1, imagePosX: 0, imagePosY: 0 })}
                       className="w-full py-1.5 bg-white border border-slate-200 rounded-lg text-[10px] font-bold text-slate-500 hover:bg-slate-50 hover:text-[#005596] hover:border-[#005596] transition-colors"
@@ -531,7 +663,6 @@ const App: React.FC = () => {
                 <section className="bg-blue-50/30 p-2.5 rounded-xl border border-blue-100/50 space-y-2">
                   <h2 className="text-[11px] font-black text-[#005596] uppercase tracking-widest flex items-center gap-1.5"><Palette size={12}/> Couleurs des Textes</h2>
                   
-                  {/* Couleur du Nom */}
                   <div className="space-y-1">
                     <label className="text-[9px] text-slate-500 uppercase ml-1">Couleur du Nom</label>
                     <div className="flex gap-1.5 items-center bg-white p-1.5 rounded-lg border">
@@ -558,7 +689,6 @@ const App: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Couleur du Rôle */}
                   <div className="space-y-1">
                     <label className="text-[9px] text-slate-500 uppercase ml-1">Couleur du Rôle</label>
                     <div className="flex gap-1.5 items-center bg-white p-1.5 rounded-lg border">
@@ -585,7 +715,6 @@ const App: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Couleur de la Date */}
                   <div className="space-y-1">
                     <label className="text-[9px] text-slate-500 uppercase ml-1">Couleur de la Date</label>
                     <div className="flex gap-1.5 items-center bg-white p-1.5 rounded-lg border">
@@ -612,7 +741,6 @@ const App: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Couleur du Titre Principal */}
                   <div className="space-y-1">
                     <label className="text-[9px] text-slate-500 uppercase ml-1">Couleur du Titre</label>
                     <div className="flex gap-1.5 items-center bg-white p-1.5 rounded-lg border">
@@ -807,7 +935,7 @@ const App: React.FC = () => {
         toggleFullscreen={toggleFullscreen}
       />
 
-      {/* Help Modal - Show if user hasn't seen help yet */}
+      {/* Help Modal */}
       {!hasSeenHelp && <HelpModal />}
     </div>
   );
